@@ -810,6 +810,14 @@ class TimedJSONWebSignatureSerializer(JSONWebSignatureSerializer):
             return payload, header
         return payload
 
+    def dumps(self, obj, salt=None, header_fields=None, rfc7519=False):
+        header = self.make_header(header_fields)
+        signer = self.make_signer(salt, self.algorithm)
+        if rfc7519:
+            header.update({'typ': "JWT"})
+            obj.update({'iat': header['iat'], 'exp': header['exp']})
+        return signer.sign(self.dump_payload(header, obj))
+
     def get_issue_date(self, header):
         rv = header.get('iat')
         if isinstance(rv, number_types):
