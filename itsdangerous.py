@@ -811,6 +811,11 @@ class TimedJSONWebSignatureSerializer(JSONWebSignatureSerializer):
         return payload
 
     def dumps(self, obj, salt=None, header_fields=None, rfc7519=False):
+        """ rfc7519 copies the `iat' and `exp' fields into the claims
+        to comply with rfc7519 for JWT
+
+        ..versionadd:: 0.25
+        """
         header = self.make_header(header_fields)
         signer = self.make_signer(salt, self.algorithm)
         if rfc7519:

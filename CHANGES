@@ -1,5 +1,9 @@
 It's Dangerous Changelog
 ------------------------
+Version 0.25
+============
+
+- Added a keyword to enable RFC7519 compliance
 
 Version 0.24
 ~~~~~~~~~~~~
